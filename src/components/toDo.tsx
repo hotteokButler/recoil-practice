@@ -28,7 +28,7 @@ const ToDo = memo(({ text, id, category }: IToDoState) => {
       return oldTodos.map((todo) =>
         todo.id === id ? { ...todo, category: name as IToDoState['category'] } : { ...todo }
       );
-      // index와 slice 이용한 방법
+      // index와 slice , as any 이용한 방법
       // const targetIndex = oldTodos.findIndex((todo) => todo.id === id);
       // const newToDo = { text, id, category: name as any};
       // return [
