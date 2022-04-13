@@ -16,7 +16,7 @@ const Form = styled.form`
     margin: 0 auto;
     font-size: 1.5em;
     background-color: ${(props) => props.theme.accentColor};
-    color: ${(props) => props.theme.textColor};
+    color: ${(props) => props.theme.liTextColor};
     cursor: pointer;
   }
 `;
