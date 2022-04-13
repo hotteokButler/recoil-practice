@@ -35,17 +35,41 @@ import { useForm } from 'react-hook-form';
 // };
 
 const TodoList = () => {
-  const { register, watch } = useForm();
-  console.log(watch());
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onValid = (data: any) => {};
+  console.log(errors);
   return (
     <div>
-      <form>
-        <input {...register('Email')} placeholder="Eamil" />
-        <input {...register('Frist_Name')} placeholder="Frist Name" />
-        <input {...register('Last_Name')} placeholder="Last Name" />
-        <input {...register('Username')} placeholder="Username" />
-        <input {...register('Password')} placeholder="Password" />
-        <input {...register('Password1')} placeholder="Password1" />
+      <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit(onValid)}>
+        <input
+          {...register('Email', {
+            required: 'Email is required',
+            pattern: { value: /[A-Za-z0-9._%+-]+@naver.com$/, message: 'Please Check your email' },
+          })}
+          placeholder="Eamil"
+        />
+        <span>{errors?.Email?.message}</span>
+        <input {...register('Frist_Name', { required: 'required' })} placeholder="Frist Name" />
+        <span>{errors?.Frist_Name?.message}</span>
+        <input {...register('Last_Name', { required: 'required' })} placeholder="Last Name" />
+        <span>{errors?.Last_Name?.message}</span>
+        <input
+          {...register('Username', {
+            required: true,
+            minLength: 5,
+          })}
+          placeholder="Username"
+        />
+        <span>{errors?.Username?.message}</span>
+        <input {...register('Password', { required: 'required' })} placeholder="Password" />
+        <span>{errors?.Password?.message}</span>
+        <input {...register('Password1', { required: 'required' })} placeholder="Password1" />
+        <span>{errors?.Password1?.message}</span>
+
         <button>Add</button>
       </form>
     </div>
