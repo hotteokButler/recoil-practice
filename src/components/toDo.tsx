@@ -18,17 +18,24 @@ const Button = styled.button`
   cursor: pointer;
   border-radius: 4px;
 `;
-const ToDo = memo(({ text, category, id }: IToDoState) => {
+const ToDo = memo(({ text, id, category }: IToDoState) => {
   const setToDos = useSetRecoilState(toDoState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
     } = event;
     setToDos((oldTodos) => {
-      const targetPosition = oldTodos.findIndex((toDo) => toDo.id === id);
-      const newTodos = { ...oldTodos[targetPosition], category: name };
-
-      return [...oldTodos].splice(3, 1);
+      return oldTodos.map((todo) =>
+        todo.id === id ? { ...todo, category: name as IToDoState['category'] } : { ...todo }
+      );
+      // index와 slice 이용한 방법
+      // const targetIndex = oldTodos.findIndex((todo) => todo.id === id);
+      // const newToDo = { text, id, category: name as any};
+      // return [
+      //   ...oldTodos.slice(0, targetIndex),
+      //   newToDo,
+      //   ...oldTodos.slice(targetIndex+1)
+      // ]
     });
   };
   return (

@@ -29,7 +29,8 @@ interface IForm {
 const CreateTodos = () => {
   const setToDos = useSetRecoilState(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>();
-  const handleValid = (data: IForm) => {
+  const handleValid = (data: IForm, event: any) => {
+    event.preventDefault();
     setToDos((prev) => [...prev, { text: data.toDo, id: Date.now(), category: 'TO_DO' }]);
     setValue('toDo', '');
   };
