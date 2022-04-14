@@ -2,4 +2,4 @@
 
 ## 1. React Recoil 라이브러리 연습
 
-배포 : https://hotteokbutler.github.io/recoil-practice/index.html
+배포 : https://hotteokbutler.github.io/recoil-practice
