@@ -11,7 +11,7 @@ const root = createRoot(container!);
 
 root.render(
   <StrictMode>
-    <BrowserRouter basename="/recoil-practice">
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <RecoilRoot>
         <ThemeProvider theme={LightTheme}>
           <App />
