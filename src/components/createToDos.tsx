@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { toDoState } from '../common/toDoState';
+import { Categories, toDoState } from '../common/toDoState';
 
 const Form = styled.form`
   display: flex;
@@ -31,7 +31,7 @@ const CreateTodos = () => {
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const handleValid = (data: IForm, event: any) => {
     event.preventDefault();
-    setToDos((prev) => [...prev, { text: data.toDo, id: Date.now(), category: 'TO_DO' }]);
+    setToDos((prev) => [...prev, { text: data.toDo, id: Date.now(), category: Categories.TO_DO }]);
     setValue('toDo', '');
   };
 

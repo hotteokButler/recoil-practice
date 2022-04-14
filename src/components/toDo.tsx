@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { IToDoState, toDoState } from '../common/toDoState';
+import { Categories, IToDoState, toDoState } from '../common/toDoState';
 
 const ToDoElem = styled.li`
   padding: 0.5em;
@@ -24,9 +24,9 @@ const ToDo = memo(({ text, id, category }: IToDoState) => {
     const {
       currentTarget: { name },
     } = event;
-    setToDos((oldTodos) => {
-      return oldTodos.map((todo) =>
-        todo.id === id ? { ...todo, category: name as IToDoState['category'] } : { ...todo }
+    setToDos((oldTodos: any) => {
+      return oldTodos.map((todo: any) =>
+        todo.id === id ? { ...todo, category: Categories } : { ...todo }
       );
       // index와 slice , as any 이용한 방법
       // const targetIndex = oldTodos.findIndex((todo) => todo.id === id);
@@ -41,18 +41,18 @@ const ToDo = memo(({ text, id, category }: IToDoState) => {
   return (
     <ToDoElem>
       <ToDoText>{text}</ToDoText>
-      {category !== 'DOING' && (
-        <Button name="DOING" onClick={onClick}>
+      {category !== Categories.DOING && (
+        <Button name={Categories.DOING} onClick={onClick}>
           Doing
         </Button>
       )}
-      {category !== 'TO_DO' && (
-        <Button name="TO_DO" onClick={onClick}>
+      {category !== Categories.TO_DO && (
+        <Button name={Categories.TO_DO} onClick={onClick}>
           To do
         </Button>
       )}
-      {category !== 'DONE' && (
-        <Button name="DONE" onClick={onClick}>
+      {category !== Categories.DONE && (
+        <Button name={Categories.DONE} onClick={onClick}>
           Done
         </Button>
       )}

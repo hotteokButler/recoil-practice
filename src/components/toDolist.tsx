@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { categoryState, IToDoState, toDoSelector, toDoState } from '../common/toDoState';
+import {
+  Categories,
+  categoryState,
+  IToDoState,
+  toDoSelector,
+  toDoState,
+} from '../common/toDoState';
 import ToDo from './toDo';
 
 const Button = styled.button<{ isActive: boolean }>`
@@ -31,38 +37,39 @@ const MenuToggleButton = styled.div`
 const TodoList = () => {
   const categoryList = useRecoilValue(toDoSelector);
   const allList = useRecoilState(toDoState);
-  const setCategory = useSetRecoilState(categoryState);
+  const setCategory = useSetRecoilState<Categories>(categoryState);
   const [subtitle, setSubtitle] = useState('');
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
     } = event;
+    console.log(name);
     setSubtitle(name);
     if (name === 'toDos') {
-      setCategory('TO_DO');
+      setCategory(Categories.TO_DO);
     } else if (name === 'doing') {
-      setCategory('DOING');
+      setCategory(Categories.DOING);
     } else if (name === 'done') {
-      setCategory('DONE');
+      setCategory(Categories.DONE);
     }
   };
 
-  const categoryLength = (value: string) => {
+  const categoryLength = (value: Categories) => {
     return allList[0].filter((todo) => todo.category === value).length;
   };
 
   return (
     <>
       <MenuToggleButton>
-        <Button onClick={onClick} isActive={categoryLength('TO_DO') > 0} name="toDos">
-          ToDos({categoryLength('TO_DO')})
+        <Button onClick={onClick} isActive={categoryLength(Categories.TO_DO) > 0} name="toDos">
+          ToDos({categoryLength(Categories.TO_DO)})
         </Button>
-        <Button onClick={onClick} isActive={categoryLength('DOING') > 0} name="doing">
-          Doing({categoryLength('DOING')})
+        <Button onClick={onClick} isActive={categoryLength(Categories.DOING) > 0} name="doing">
+          Doing({categoryLength(Categories.DOING)})
         </Button>
-        <Button onClick={onClick} isActive={categoryLength('DONE') > 0} name="done">
-          Done ({categoryLength('DONE')})
+        <Button onClick={onClick} isActive={categoryLength(Categories.DONE) > 0} name="done">
+          Done ({categoryLength(Categories.DONE)})
         </Button>
       </MenuToggleButton>
       <Subtitle>&lt;{subtitle ? subtitle : 'ToDos'}&gt;</Subtitle>
